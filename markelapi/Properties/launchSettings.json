@@ -12,7 +12,8 @@
     "markelapi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:40415",
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:47848;http://localhost:3137",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -21,14 +22,6 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "markelapiz": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:47848;http://localhost:3137",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
