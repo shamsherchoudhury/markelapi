@@ -15,9 +15,18 @@
   <ItemGroup>
     <None Remove="Services\" />
     <None Remove="Repositories\" />
+    <None Remove="Services\Interfaces\" />
+    <None Remove="Repositories\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Repositories\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>
