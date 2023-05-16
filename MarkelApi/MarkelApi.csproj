@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>markelapi</AssemblyName>
+    <UserSecretsId>1de6e155-eb46-4555-a3bf-b77d454a8171</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'markelapi' " />

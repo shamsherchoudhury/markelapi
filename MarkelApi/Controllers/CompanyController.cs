@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MarkelApi.Services.Interfaces;
 using Models.External;
+using Models.Exceptions;
+//using Models.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MarkelApi.Controllers
 {
     [Route("api/[controller]")]
+    //[Route("[controller]")]
+    //[ApiController]
     public class CompanyController : Controller
     {
         private readonly ICompanyService _companyService;
@@ -20,36 +20,69 @@ namespace MarkelApi.Controllers
             _companyService = companyService;
         }
 
-        [HttpGet("company/{companyId}")]
-        public async Task<Company> Get(int companyId)
+        [HttpGet("details/{companyId}")]
+        [ProducesResponseType(typeof(Company), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Company), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Company>> GetCompany(int companyId)
         {
-            return await _companyService.GetCompany(companyId);
+            var company = await _companyService.GetCompany(companyId);
+
+            if (company is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(company);
         }
 
-        /*
-        [HttpGet("company/{companyId}")]
-        public IEnumerable<string> Get(int companyId)
+        [HttpGet("claims/{companyId}")]
+        public async Task<IEnumerable<BasicClaim>> GetBasicClaims(int companyId)
         {
-            return new string[] { "value1", "value2" };
-        }
-        */
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
+            return await _companyService.GetBasicClaims(companyId);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet("claim/{ucr}")]
+        [ProducesResponseType(typeof(EnhancedClaim), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(EnhancedClaim), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<EnhancedClaim>> GetEnhancedClaim(string ucr)
         {
+            var enhancedClaim = await _companyService.GetEnhancedClaim(ucr);
+
+            if (enhancedClaim is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(enhancedClaim);
+
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut("claim")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task UpdateClaim([FromBody] BasicClaim claim)
         {
+            try
+            {
+                //var claim = System.Text.Json.JsonSerializer.Deserialize<BasicClaim>(value);
+
+                if (claim is not null)
+                {
+                    await _companyService.UpdateClaim(claim);
+                    Ok();
+                }
+            }
+            catch (EntityNotFoundException ex)
+            {
+                Console.WriteLine(ex.Message);
+                NotFound();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                BadRequest();
+            }
         }
     }
 }

@@ -10,6 +10,6 @@ namespace Models.External
         public string Address3 { get; set; }
         public string Postcode { get; set; }
         public string Country { get; set; }
-        public DateTime InsuranceEndDate { get; set; }
+        public bool IsPolicyActive { get; set; }
     }
 }

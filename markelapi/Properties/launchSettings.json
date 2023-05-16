@@ -12,7 +12,8 @@
     "markelapi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:56449;http://localhost:13620",
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:30509;http://localhost:6920",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
